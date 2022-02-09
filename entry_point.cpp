@@ -39,7 +39,7 @@ bool scanner(HANDLE pHandle,T tValue, std::vector<UI64>& vecAddressList) {
         }
     }
 
-    return vecAddressList.size() > 0 ? true : false;
+    return vecAddressList.size();
 }
 
 int main() {
