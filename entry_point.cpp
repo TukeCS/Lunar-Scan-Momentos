@@ -62,5 +62,7 @@ int main() {
     else
         std::cout << "Nothing found";
   
+  CloseHandle(pHandle);
+  
   return 0;
 }
