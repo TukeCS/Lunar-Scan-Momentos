@@ -5,7 +5,6 @@
 /* _______________________________
   |                               |
   |     OMG AMOGOS BY TUKE        |
-  |  stack overflow on the beat   |
   |  because it be working lunar  |
   |_______________________________| */
 
