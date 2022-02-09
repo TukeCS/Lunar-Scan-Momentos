@@ -8,11 +8,10 @@
   |  because it be working lunar  |
   |_______________________________| */
 
-
-typedef unsigned __int64 UI64;
+using L_U64 = uint64_t;
 
 template<class T>
-bool scanner(HANDLE pHandle,T tValue, std::vector<UI64>& vecAddressList) {
+bool scanner(HANDLE pHandle, T tValue, std::vector<L_U64>& vecAddressList) {
 
     vecAddressList.clear();
 
@@ -20,7 +19,7 @@ bool scanner(HANDLE pHandle,T tValue, std::vector<UI64>& vecAddressList) {
 
     DWORD dwFlags = (PAGE_NOACCESS | PAGE_GUARD | PAGE_NOCACHE);
 
-    for (UI64 ui64BaseAddress = 0; VirtualQueryEx(pHandle, (LPCVOID)ui64BaseAddress, &mbi, sizeof(mbi)); ui64BaseAddress += mbi.RegionSize) {
+    for (L_U64 ui64BaseAddress = 0; VirtualQueryEx(pHandle, (LPCVOID)ui64BaseAddress, &mbi, sizeof(mbi)); ui64BaseAddress += mbi.RegionSize) {
 
         if ((mbi.State & MEM_COMMIT) && !(mbi.Protect & dwFlags) && (mbi.Protect & PAGE_EXECUTE_READWRITE) && ui64BaseAddress != 0) {
 
@@ -28,7 +27,7 @@ bool scanner(HANDLE pHandle,T tValue, std::vector<UI64>& vecAddressList) {
 
             if (ReadProcessMemory(pHandle, (LPCVOID)ui64BaseAddress, &vecBuffer[0], vecBuffer.size(), nullptr)) {
 
-                for (UI64 index = 0; index < vecBuffer.size(); index++) {
+                for (L_U64 index = 0; index < vecBuffer.size(); index++) {
 
                     if (tValue == vecBuffer[index]) {
 
@@ -51,7 +50,7 @@ int main() {
     GetWindowThreadProcessId(hWnd, &pID);
     HANDLE pHandle = OpenProcess(PROCESS_ALL_ACCESS, FALSE, pID);
 
-    std::vector<UI64> list;
+    std::vector<L_U64> list;
 
     if (scanner(pHandle, flReach, list)) {
         std::cout << "Something found" << std::endl;
