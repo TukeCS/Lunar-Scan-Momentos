@@ -61,4 +61,6 @@ int main() {
     }
     else
         std::cout << "Nothing found";
+  
+  return 0;
 }
