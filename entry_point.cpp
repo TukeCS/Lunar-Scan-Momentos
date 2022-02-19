@@ -21,7 +21,7 @@ bool scanner(HANDLE pHandle, T tValue, std::vector<L_U64>& vecAddressList) {
 
     for (L_U64 ui64BaseAddress = 0; VirtualQueryEx(pHandle, (LPCVOID)ui64BaseAddress, &mbi, sizeof(mbi)); ui64BaseAddress += mbi.RegionSize) {
 
-        if ((mbi.State & MEM_COMMIT) && !(mbi.Protect & dwFlags) && (mbi.Protect & PAGE_EXECUTE_READWRITE) && ui64BaseAddress != 0) {
+        if ((mbi.State & MEM_COMMIT) && (mbi.Protect & PAGE_EXECUTE_READWRITE) && ui64BaseAddress != 0) {
 
             std::vector<T> vecBuffer(mbi.RegionSize);
 
